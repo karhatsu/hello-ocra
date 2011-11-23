@@ -1,0 +1,24 @@
+A very simple application to reproduce OCRA's problem with gems. Tested with:
+* Ruby 1.9.3-p0 (similar problems noticed with 1.8.7 and 1.9.2)
+* OCRA 1.3.0 (similar problems noticed with 1.2.0)
+* Bundler 1.0.21 (similar problems noticed with 1.0.9)
+* Rubygems 1.8.11 (TODO: need to test other Rubygems versions)
+* no Rails needed to reproduce the problem
+
+** these commands work:
+ocra hello-ocra/hello.rb --output hello.exe --debug
+ocra hello-ocra/hello.rb --output hello.exe --gemfile hello-ocra/Gemfile --debug
+
+** this does not compile (since no dep run nor gemfile defined):
+ocra hello-ocra/hello.rb --output hello.exe --no-dep-run --debug
+
+** these commands do not work (cannot load such file -- rubygems.rb):
+ocra hello-ocra/hello.rb --output hello.exe --gemfile hello-ocra/Gemfile --no-dep-run --debug
+ocra hello-ocra/hello.rb --output hello.exe --gemfile hello-ocra/Gemfile --no-dep-run --chdir-first --debug
+
+** these commands do not work (cannot load such file -- bundler/setup):
+ocra hello-ocra/hello.rb --output hello.exe --add-all-core --gemfile hello-ocra/Gemfile --no-dep-run --chdir-first --debug
+ocra hello-ocra/hello.rb hello-ocra --output hello.exe --add-all-core --gemfile hello-ocra/Gemfile --no-dep-run --chdir-first --debug
+
+The original command for Rails apps in the documentation (https://github.com/larsch/ocra) is:
+ocra someapp/script/rails someapp --output someapp.exe --add-all-core --gemfile someapp/Gemfile --no-dep-run --chdir-first -- server
