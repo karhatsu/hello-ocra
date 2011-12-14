@@ -5,6 +5,8 @@ require 'rubygems'
 #require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
 
 # this does not work either
-require 'bundler/setup'
+require 'bundler/setup' unless ENV['OCRA_EXECUTABLE']
 
-p "hello ocra"
+require 'random_data'
+
+p "Hello #{Random.firstname}"

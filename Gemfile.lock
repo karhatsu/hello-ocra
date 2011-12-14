@@ -1,8 +1,10 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    random_data (1.5.2)
 
 PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  random_data
