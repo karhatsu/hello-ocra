@@ -11,8 +11,11 @@ ocra hello-ocra/hello.rb --output hello.exe --gemfile hello-ocra/Gemfile --debug
 ** THIS DOES NOT WORK:
 ocra hello-ocra/hello.rb --output hello.exe --gemfile hello-ocra/Gemfile --debug --debug-extract --add-all-core --no-dep-run
 => <extracted_ocra_folder>\lib\ruby\gems\1.8\gems\random_data-1.5.2\lib folder is missing!
-
 => So, what's wrong with no-dep-run option? Why are the source files not included?!
+
+** SOLUTION:
+ocra hello-ocra/hello.rb --output hello.exe --gemfile hello-ocra/Gemfile --debug --debug-extract --add-all-core --no-dep-run --gem-full
+=> If you use --no-dep-run, you must use --gem-full.
 
 ** The original command for Rails apps in the documentation (https://github.com/larsch/ocra):
 ocra someapp/script/rails someapp --output someapp.exe --add-all-core --gemfile someapp/Gemfile --no-dep-run --chdir-first -- server
