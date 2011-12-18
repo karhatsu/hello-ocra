@@ -5,20 +5,14 @@ A very simple application to reproduce OCRA's problem with gems. Tested with:
 * Rubygems 1.8.11 (the same problem with 1.8.6)
 * no Rails needed to reproduce the problem
 
-** these commands work:
-ocra hello-ocra/hello.rb --output hello.exe --debug
-ocra hello-ocra/hello.rb --output hello.exe --gemfile hello-ocra/Gemfile --debug
+** THIS WORKS:
+ocra hello-ocra/hello.rb --output hello.exe --gemfile hello-ocra/Gemfile --debug --debug-extract --add-all-core
 
-** this does not compile (since no dep run nor gemfile defined):
-ocra hello-ocra/hello.rb --output hello.exe --no-dep-run --debug
+** THIS DOES NOT WORK:
+ocra hello-ocra/hello.rb --output hello.exe --gemfile hello-ocra/Gemfile --debug --debug-extract --add-all-core --no-dep-run
+=> <extracted_ocra_folder>\lib\ruby\gems\1.8\gems\random_data-1.5.2\lib folder is missing!
 
-** these commands do not work (cannot load such file -- rubygems.rb):
-ocra hello-ocra/hello.rb --output hello.exe --gemfile hello-ocra/Gemfile --no-dep-run --debug
-ocra hello-ocra/hello.rb --output hello.exe --gemfile hello-ocra/Gemfile --no-dep-run --chdir-first --debug
+=> So, what's wrong with no-dep-run option? Why are the source files not included?!
 
-** these commands do not work (cannot load such file -- bundler/setup):
-ocra hello-ocra/hello.rb --output hello.exe --add-all-core --gemfile hello-ocra/Gemfile --no-dep-run --chdir-first --debug
-ocra hello-ocra/hello.rb hello-ocra --output hello.exe --add-all-core --gemfile hello-ocra/Gemfile --no-dep-run --chdir-first --debug
-
-The original command for Rails apps in the documentation (https://github.com/larsch/ocra) is:
+** The original command for Rails apps in the documentation (https://github.com/larsch/ocra):
 ocra someapp/script/rails someapp --output someapp.exe --add-all-core --gemfile someapp/Gemfile --no-dep-run --chdir-first -- server
